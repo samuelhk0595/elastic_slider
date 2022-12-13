@@ -129,8 +129,8 @@ class SliderPainter extends CustomPainter {
     // final points = <Offset>[];
     final firstAnchor = Offset(nodePoint.translate(-150, 0).dx, lineHeight);
 
-    final firstControlPoint =
-        Offset(nodePoint.translate(-90, 0).dx, lineHeight + ((lineHeight - nodePoint.dy)*0.3));
+    final firstControlPoint = Offset(nodePoint.translate(-90, 0).dx,
+        lineHeight + ((lineHeight - nodePoint.dy) * 0.3));
     final secondAnchor = Offset(nodePoint.translate(-40, 0).dx,
         lineHeight + ((nodePoint.dy - lineHeight) * 0.75));
 
@@ -140,19 +140,50 @@ class SliderPainter extends CustomPainter {
       endPoint: secondAnchor,
     );
 
-    final secondControlPoint = Offset(nodePoint.translate(-20, 0).dx, lineHeight + ((nodePoint.dy - lineHeight) * 1.1));
+    final secondControlPoint = Offset(nodePoint.translate(-20, 0).dx,
+        lineHeight + ((nodePoint.dy - lineHeight) * 1.1));
 
     final secondCurve = computeBezierCurve(
       startPoint: secondAnchor,
       controlPoint: secondControlPoint,
       endPoint: nodePoint,
     );
+
+//   //  //  //  //  //
+
+    final fourthAnchor = Offset(nodePoint.translate(150, 0).dx, lineHeight);
+    final fourthControlPoint = Offset(nodePoint.translate(90, 0).dx,
+        lineHeight + ((lineHeight - nodePoint.dy) * 0.3));
+
+    final thirdAnchor = Offset(nodePoint.translate(40, 0).dx,
+        lineHeight + ((nodePoint.dy - lineHeight) * 0.75));
+
+
+    final thirdControlPoint = Offset(nodePoint.translate(20, 0).dx,
+        lineHeight + ((nodePoint.dy - lineHeight) * 1.1));
+
+    final thirdCurve = computeBezierCurve(
+      startPoint: nodePoint,
+      controlPoint: thirdControlPoint,
+      endPoint: thirdAnchor,
+    );
+
+    final fourthCurve = computeBezierCurve(
+      startPoint: thirdAnchor,
+      controlPoint: fourthControlPoint,
+      endPoint: fourthAnchor,
+    );
+
     // canvas.drawCircle(firstAnchor, 5, paint);
     // canvas.drawCircle(firstControlPoint, 5, paint);
     // canvas.drawCircle(secondAnchor, 5, paint);
     // canvas.drawCircle(secondControlPoint, 5, paint);
+    // canvas.drawCircle(thirdAnchor, 5, paint);
+    // canvas.drawCircle(fourthControlPoint, 5, paint);
+    // canvas.drawCircle(fourthAnchor, 5, paint);
+    // canvas.drawCircle(thirdControlPoint, 5, paint);
 
-    return [...firstCurve, ...secondCurve];
+    return [...firstCurve, ...secondCurve, ...thirdCurve, ...fourthCurve];
   }
 
   List<Offset> computeBezierCurve({
