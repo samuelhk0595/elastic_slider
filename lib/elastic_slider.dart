@@ -158,7 +158,6 @@ class SliderPainter extends CustomPainter {
     final thirdAnchor = Offset(nodePoint.translate(40, 0).dx,
         lineHeight + ((nodePoint.dy - lineHeight) * 0.75));
 
-
     final thirdControlPoint = Offset(nodePoint.translate(20, 0).dx,
         lineHeight + ((nodePoint.dy - lineHeight) * 1.1));
 
@@ -174,6 +173,16 @@ class SliderPainter extends CustomPainter {
       endPoint: fourthAnchor,
     );
 
+    final segmentStartCurveControlPoint = Offset(
+        firstAnchor.dx / 2,
+        lineHeight + (((nodePoint.dy - lineHeight) * (firstAnchor.dx  * 0.002))));
+
+    final segmentStartCurve = computeBezierCurve(
+      startPoint: segmentStartPoint,
+      controlPoint: segmentStartCurveControlPoint,
+      endPoint: firstAnchor,
+    );
+
     // canvas.drawCircle(firstAnchor, 5, paint);
     // canvas.drawCircle(firstControlPoint, 5, paint);
     // canvas.drawCircle(secondAnchor, 5, paint);
@@ -182,8 +191,15 @@ class SliderPainter extends CustomPainter {
     // canvas.drawCircle(fourthControlPoint, 5, paint);
     // canvas.drawCircle(fourthAnchor, 5, paint);
     // canvas.drawCircle(thirdControlPoint, 5, paint);
+    // canvas.drawCircle(segmentStartCurveControlPoint, 5, paint);
 
-    return [...firstCurve, ...secondCurve, ...thirdCurve, ...fourthCurve];
+    return [
+      ...segmentStartCurve,
+      ...firstCurve,
+      ...secondCurve,
+      ...thirdCurve,
+      ...fourthCurve
+    ];
   }
 
   List<Offset> computeBezierCurve({
